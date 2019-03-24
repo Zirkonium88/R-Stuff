@@ -35,8 +35,7 @@ new.df.list$sls <-grm(daten=new.df, m=5,
 
 # In the next step, the script generates four vector graphics (pdf).
 # The font is Times New Roman.
-# The function par(mfrow = c (2,2)) specifies the arrangement of the graphics
-# before (2 columns and 2 lines)
+# The function par(mfrow = c (2,2)) specifies the arrangement of the graphics (2 columns and 2 lines)
 # The dev.off () function executes the write operation. The file
 # is stored in the project folder. \n creates a new line in the title.
 
