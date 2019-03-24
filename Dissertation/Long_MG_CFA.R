@@ -107,14 +107,14 @@ fit.configMI <- lavaan(model = config,data = DATA,
                                 missing = "FIML")
 
 # Get summary statistics
-summary(fit.metrischMI, standardized=TRUE, 
+summary(fit.configMI, standardized=TRUE, 
         fit.measures=TRUE, rsquare = TRUE)
 
-# To determine the reliabilities, the script creates a list.
-# The reliability () function returns Cronbach's alpha,
-# McDonald's omega and the AVE.
+# To determine the fit indizes, use fitmeasures().
+# Save the results as part of a list()
+
 rel.list <- list()
-rel.list$fit.konfigMI <- reliability(fit.configMI)
+rel.list$config<- fitmeasures(fit.configMI, fit.measures = c("chisq","df","pvalue","rmsea","rmsea.ci.lower","rmsea.ci.upper","cfi", "tli", "srmr"))
 
 # Metric measurement invariance check: Limitations of factor loadings
 # about the group factor and the measurement points. In the example, 
@@ -183,7 +183,7 @@ fit.metricMI <- lavaan(model = metric,data = DATA,
 summary(fit.metricMI, standardized=TRUE, 
         fit.measures=TRUE, rsquare = TRUE)
 
-rel.list$fit.metricMI <- reliability(fit.metricMI)
+rel.list$metric<- fitmeasures(fit.metricMI, fit.measures = c("chisq","df","pvalue","rmsea","rmsea.ci.lower","rmsea.ci.upper","cfi", "tli", "srmr"))
 
 # Scalar measurement invariance check: Limitations of factor loadings
 # about the group factor and the measurment points as well as for the mean values
@@ -248,7 +248,7 @@ fit.scalarMI <- lavaan(model = scalar,data = DATA,
 summary(fit.skalarMI, standardized=TRUE,
         fit.measures=TRUE, rsquare = TRUE)
 
-rel.list$fit.skalarMI <- reliability(fit.skalarMI)
+rel.list$scalar<- fitmeasures(fit.scalarMI, fit.measures = c("chisq","df","pvalue","rmsea","rmsea.ci.lower","rmsea.ci.upper","cfi", "tli", "srmr"))
 
 # Strict measurement invariance check: Limitations of factor loadings
 # about the test form and the time of measurement, for the averages of the
@@ -317,31 +317,24 @@ summary(fit.strictMI, standardized=TRUE,
         fit.measures=TRUE, rsquare = TRUE)
 
 
-rel.list$fit.striktMI <- reliability(fit.striktMI)
+rel.list$strict<- fitmeasures(fit.strictMI, fit.measures = c("chisq","df","pvalue","rmsea","rmsea.ci.lower","rmsea.ci.upper","cfi", "tli", "srmr"))
 
 # In the following, the list elements are called and set.
 # The rbind() function binds rows together.
 
-df <- rbind(rel.list$fit.konfigMI$GROUP1,
-            rel.list$fit.metrischMI$GROUP1,
-            rel.list$fit.skalarMI$GROUP1,
-            rel.list$fit.striktMI$GROUP1,
-            rel.list$fit.konfigMI$GROUP2,
-            rel.list$fit.metrischMI$GROUP2,
-            rel.list$fit.skalarMI$GROUP2,
-            rel.list$fit.striktMI$GROUP2) 
+df <- rbind(rel.list$config,
+            rel.list$metric,
+            rel.list$scalar,
+            rel.list$strict)
 
 # The script generates a table with the results of the
 # reliability() function. The numbers in the cbind() function indicate the lines
 # where McDonald omega is placed.
 
-kable(cbind(mod.names, round(df[,c(1:2)], digits = 2), format.pval(round(df[,c(3)], 
-digits =3), eps = 0.05, digits = 3), round(df[,c(4,7:9)], digits = 3),qual), 
-row.names = F, col.names = c("Stufe", "Chi-Quadrat", "dF", "p", "RMSEA","CFI", "TLI", "SRMR", "Angen.?"), 
-caption = "Messinvarianzmodelle zur NOS-Kurzskala Herkunft.", format = "html", booktabs = TRUE) %>% 
-  kable_styling("striped", full_width = FALSE) %>%
-  footnote(general_title = "Anmerkung: ", general =  c("dF: Freiheitsgrade; CFI: Comparative-Fit-Index;","RMSEA: Root-Mean-Square-Error of Approximation;", "TLI: Tucker-Lewis-Index; SRMR: Standardized Root Mean Square Residual","Partial-skalar: Beschränkung für Faktorladung von Item 3 wurde zum ersten", "Messzeitpunkt aufgehoben; Angen.?: Angenommen?")) %>%
-  add_header_above(c(" " = 4,"Fit-Werte" = 4," " =1))
+kable(cbind(c("Konfigurale MI","Metrische MI", "Skalare MI", "Strikte MI"),round(df,2)), row.names = FALSE, format = "html",col.names = c("Stufe", "Chi-Quadrat", "dF", "p", "RMSEA", "RMSEA Lower CI","RMSEA Upper CI","CFI", "TLI", "SRMR"),caption = "Beispiel für eine automatisierte Tabelle", booktabs = TRUE) %>%
+kableExtra::kable_styling("striped") %>% 
+  footnote(general_title = "Anmkerung: ",general = c("dF: Freiheitsgrade; CFI: Comparative-Fit-Index;","RMSEA: Root-Mean-Square-Error of Approximation;", "TLI: Tucker-Lewis-Index; SRMR: Standardized Root Mean Square Residual"))  %>%
+  kableExtra::add_header_above(c(" " = 4,"Fit-Werte" = 6))
 ```
 
 

@@ -39,7 +39,7 @@ new.df.list$sls <-grm(daten=new.df, m=5,
 # The dev.off () function executes the write operation. The file
 # is stored in the project folder. \n creates a new line in the title.
 
-pdf(file='Beispiel.pdf',family = "Times New Roman")
+pdf(file='Example.pdf',family = "Times New Roman")
 par(mfrow=c(2,2))
 plot(new.df.list$sex), xlab = "Male", ylab = "Female", 
      main = "Sex", itemNames = TRUE,xymin = -2, xymax = 2)
