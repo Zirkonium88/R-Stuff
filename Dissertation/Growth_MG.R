@@ -1,8 +1,8 @@
 ```{r latWM, echo=TRUE, eval = FALSE}
-# Paketinstallation
+# Installl necessary packages
 install.packages("lavaan")
 
-# Pakete laden
+# Load libraries
 library(lavaan)
 
 GROWTH.Herk <-  '
