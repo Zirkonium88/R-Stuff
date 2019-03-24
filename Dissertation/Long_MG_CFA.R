@@ -344,8 +344,4 @@ caption = "Messinvarianzmodelle zur NOS-Kurzskala Herkunft.", format = "html", b
   add_header_above(c(" " = 4,"Fit-Werte" = 4," " =1))
 ```
 
-# The outpu now looks like this
-
-![](Sample_Table.ong)
-
 
