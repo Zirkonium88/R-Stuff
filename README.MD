@@ -10,11 +10,14 @@ This example shows you how to use [`lavaan`](http://lavaan.ugent.be/tutorial/cfa
 
 ## Specifying a multi-group latent growth modell
 
-This [examples](https://github.com/Zirkonium88/R-Stuff/blob/master/Dissertation/Growth_MG.R) how latent growth models can be established with [`lavaan`](http://lavaan.ugent.be/tutorial/cfa.html). The model specification is based on:
+This [example](https://github.com/Zirkonium88/R-Stuff/blob/master/Dissertation/Growth_MG.R) how latent growth models can be established with [`lavaan`](http://lavaan.ugent.be/tutorial/cfa.html). The model specification is based on:
 
 - Little, T. D. (2013). Longitudinal Structural Equation Modeling. New York: Guilford Press.
 - Grimm, K. J., Ram, N. & Estabrook, R. (2016). Growth modeling: Structural equation and multilevel modeling approaches. Guilford Publications.
 - Wu, A. D., Liu, Y., Gadermann, A. M. & Zumbo, B. D. (2010). Multiple-indicator mul- tilevel growth model: A solution to multiple methodological challenges in longitudinal studies. Social Indicators Research, 97 (2), 123–142. doi:10.1007/s11205-009-9496-8
 
+## Dealing with DIF-analysis
 
+The following [example](https://github.com/Zirkonium88/R-Stuff/blob/master/Dissertation/DIF_Analysis.R) shows, how I used [`pairwise`](https://cran.r-project.org/web/packages/pairwise/index.html) for my DIF analysis.
+In a first step, I recoded my Likert scales with [`car`](https://cran.r-project.org/web/packages/car/index.html). The scales need to start with zero. In the example, these are five. In addition, the example shows the automated export of four DIF analyzes in a combined graph in pdf format and calling the export using [`R-markdown`](https://rmarkdown.rstudio.com) or [`bookdown`](https://bookdown.org) combined with [`knitr`](https://yihui.name/knitr/).
 
