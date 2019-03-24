@@ -320,7 +320,7 @@ summary(fit.strictMI, standardized=TRUE,
 rel.list$fit.striktMI <- reliability(fit.striktMI)
 
 # In the following, the list elements are called and set.
-# The rbind () function binds rows together.
+# The rbind() function binds rows together.
 
 df <- rbind(rel.list$fit.konfigMI$GROUP1,
             rel.list$fit.metrischMI$GROUP1,
@@ -335,14 +335,17 @@ df <- rbind(rel.list$fit.konfigMI$GROUP1,
 # reliability() function. The numbers in the cbind() function indicate the lines
 # where McDonald omega is placed.
 
-kable(cbind(c("Herkunft","Sicherheit","Entwicklung","Rechtfertigung",
-              "Herkunft","Sicherheit","Entwicklung","Rechtfertigung"),
-      round(df[c(4,9,14,19,24,29,34,39),],2)), row.names = FALSE,
-      format = "latex", 
-      col.names = c("NOS-scale","Measurement point 1",
-                    "Measurement point 2","Both Measurement points"),
-      caption = "McDonalds-$\\omega$", booktabs = TRUE) %>%
-  kableExtra::kable_styling("striped") %>%
-  group_rows(group_label = "Group 1",1,4) %>%
-  group_rows(group_label = "Group 2",5,8)
+kable(cbind(mod.names, round(df[,c(1:2)], digits = 2), format.pval(round(df[,c(3)], 
+digits =3), eps = 0.05, digits = 3), round(df[,c(4,7:9)], digits = 3),qual), 
+row.names = F, col.names = c("Stufe", "Chi-Quadrat", "dF", "p", "RMSEA","CFI", "TLI", "SRMR", "Angen.?"), 
+caption = "Messinvarianzmodelle zur NOS-Kurzskala Herkunft.", format = "html", booktabs = TRUE) %>% 
+  kable_styling("striped", full_width = FALSE) %>%
+  footnote(general_title = "Anmerkung: ", general =  c("dF: Freiheitsgrade; CFI: Comparative-Fit-Index;","RMSEA: Root-Mean-Square-Error of Approximation;", "TLI: Tucker-Lewis-Index; SRMR: Standardized Root Mean Square Residual","Partial-skalar: Beschränkung für Faktorladung von Item 3 wurde zum ersten", "Messzeitpunkt aufgehoben; Angen.?: Angenommen?")) %>%
+  add_header_above(c(" " = 4,"Fit-Werte" = 4," " =1))
 ```
+
+# The outpu now looks like this
+
+![](Sample_Table.ong)
+
+
